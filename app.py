@@ -14,7 +14,8 @@ from xgboost import XGBClassifier
 from skactiveml.classifier import SklearnClassifier
 from sklearn.gaussian_process import GaussianProcessClassifier
 from skactiveml.utils import MISSING_LABEL
-
+import warnings
+warnings.filterwarnings("ignore")
 
 def run_active_learning(X , y,X_test,y_test, clf , strategy, rounds,R=False):
     model = SklearnClassifier(
@@ -89,7 +90,7 @@ def run_model(X,Y,qs_name , num_rounds):
     clf = XGBClassifier()
     
     # Depending on the query strategy name, call run_active_learning with the correct arguments
-    if qs_name == "RandomSampling":
+    if qs_name in ["RandomSampling","CostEmbeddingAL"] :
         run_active_learning(X_train, y_train, X_test, y_test, clf, qs, num_rounds, R=True)
     else:
         run_active_learning(X_train, y_train, X_test, y_test, clf, qs, num_rounds)
@@ -103,9 +104,9 @@ def activate(uploaded_file,selected_strategy_name , num_rounds):
 query_strategy_factory_functions = {
     'RandomSampling': lambda random_state: RandomSampling(random_state=gen_seed(random_state)),
     'UncertaintySampling (Entropy)': lambda random_state: UncertaintySampling(random_state=gen_seed(random_state),method='entropy'),
-    'UncertaintySampling2 (Margin)': lambda random_state: UncertaintySampling(random_state=gen_seed(random_state),method='margin_sampling'),
+    'CostEmbeddingAL': lambda random_state: CostEmbeddingAL(random_state=gen_seed(random_state),classes=[0, 1]),
     'ProbabilisticAL': lambda random_state: ProbabilisticAL(random_state=gen_seed(random_state), metric='rbf')
-    }
+}
 
 # Streamlit app layout
 st.title('Model Prediction App')
