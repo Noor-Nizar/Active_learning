@@ -109,7 +109,7 @@ query_strategy_factory_functions = {
 }
 
 # Streamlit app layout
-st.title('Model Prediction App')
+st.title('Active Learning')
 
 # File uploader allows user to add their own CSV
 uploaded_file = st.file_uploader("Upload your input CSV", type=["csv"])
