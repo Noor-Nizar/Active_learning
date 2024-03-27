@@ -9,7 +9,7 @@ from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier 
 from sklearn.ensemble import VotingClassifier
 from sklearn.utils import shuffle
-from skactiveml.pool import UncertaintySampling, QueryByCommittee, RandomSampling, ProbabilisticAL, MonteCarloEER
+from skactiveml.pool import UncertaintySampling, QueryByCommittee, RandomSampling,ProbabilisticAL,MonteCarloEER,CostEmbeddingAL
 from xgboost import XGBClassifier
 from skactiveml.classifier import SklearnClassifier
 from sklearn.gaussian_process import GaussianProcessClassifier
